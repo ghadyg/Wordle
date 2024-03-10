@@ -12,7 +12,49 @@ function App() {
     ['', '', '','',''],
     ['', '', '','','']
 ]));
-    const wordOfTheDay = ['t','a','b','l','e']
+    
+    const getWordOfTheDay = async ()=>{
+      try {
+        var date=new Date();
+        if(localStorage.getItem("date")!=null)
+        {
+          var date = new Date(JSON.parse(localStorage.getItem("date")))
+        }
+        else
+        {
+          localStorage.setItem('date', JSON.stringify(new Date()));
+        }
+        
+        if(date.setHours(0, 0, 0, 0)===new Date().setHours(0, 0, 0, 0) && localStorage.getItem("wordOfDay")!=null)
+        {
+          
+          return JSON.parse(localStorage.getItem("wordOfDay"));
+        }
+        else
+        {
+          
+          var response = await fetch(`https://random-word-api.herokuapp.com/word?number=1&length=5`);
+          var data = await response.json();
+          while(!checkWord(data[0]))
+          {
+            response = await fetch(`https://random-word-api.herokuapp.com/word?number=1&length=5`);
+            if(response.ok) 
+            {
+              data = await response.json();
+            }
+          }
+          
+            localStorage.setItem('wordOfDay', JSON.stringify([...data[0]]));
+            return [...data[0]];
+          }
+        }
+       
+      
+        catch (error) {
+        return ['t','a','b','l','e'];
+      }
+    }
+    const [wordOfTheDay,SetWordOfTheDay] = useState([]);
     const [col,setCol] = useState(0);
     const [row,setRow] = useState(localStorage.getItem("row")!=null?parseInt(localStorage.getItem("row")):0);
     const [finished,setFinished]=useState(false);
@@ -74,7 +116,29 @@ function App() {
            alert("not enough letters")
       }
     };
+
+    useEffect(()=>{
+      const fetchData = async () => {
+        try {
+         
+          const wordOfTheDay = await getWordOfTheDay();
+          
+          SetWordOfTheDay(wordOfTheDay);
+        } catch (error) {
+          console.error("Error fetching word of the day:", error);
+        }
+      };
+      fetchData();
+      if(row>0 && words[row-1].toString()===wordOfTheDay.toString())
+      {
+        setFinished(true);
+        document.removeEventListener('keydown', handleKeyPress);
+      }
+    },[])
+
+
     useEffect(() => {
+      
       if(!finished)
         document.addEventListener('keydown', handleKeyPress);
       if(finished)
@@ -89,15 +153,11 @@ function App() {
       };
   }, [words,col,row,popup]);
 
-  useEffect(()=>{
-    if(row>0 && words[row-1].toString()===wordOfTheDay.toString())
-    {
-      setFinished(true);
-      document.removeEventListener('keydown', handleKeyPress);
-    }
-  },[]
 
-  )
+
+
+
+  
   const handleBoxColor =(i,j)=>{
     if(words[i][j]===wordOfTheDay[j]) return "flipsGreen"+j;
     else if(wordOfTheDay.toString().includes(words[i][j])) return "flipsYellow"+j;
@@ -108,7 +168,13 @@ function App() {
     try {
       const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
       if(response.ok) 
-      {return true;}
+      {
+        const data = await response.json()
+        
+        if(data[0].word ===word)
+        return true;
+        else return false;
+      }
       else {return false;}
     } catch (error) {
       return false;
