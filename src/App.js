@@ -43,8 +43,26 @@ function App() {
               data = await response.json();
             }
           }
-          
+            localStorage.setItem('date', JSON.stringify(new Date()));
             localStorage.setItem('wordOfDay', JSON.stringify([...data[0]]));
+            localStorage.setItem("words",JSON.stringify([
+              ['', '', '','',''],
+              ['', '', '','',''],
+              ['', '', '','',''],
+              ['', '', '','',''],
+              ['', '', '','',''],
+              ['', '', '','','']
+          ]));
+            localStorage.setItem("row",0);
+            setRow(0);
+            setWords([
+              ['', '', '','',''],
+              ['', '', '','',''],
+              ['', '', '','',''],
+              ['', '', '','',''],
+              ['', '', '','',''],
+              ['', '', '','','']
+          ])
             return [...data[0]];
           }
         }
