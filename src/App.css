@@ -1,38 +1,193 @@
-.App {
+.header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 28px;
+  font-family: Cambria;
+}
+.body{
+  height: 50vh;
+  width: 20vw;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(5,20%);
+  grid-template-rows: repeat(6,16%);
+  grid-row-gap: 1%;
+  grid-column-gap: 1%;
+
+}
+
+.box {
+  border: 2px solid #d3d6da;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+.box:not(:empty) {
+  border: 2px solid #878a8c;
+}
+
+@keyframes flipAnimation {
+  0% {
+    transform: rotateX(0deg); /* Start with no rotation */
+  }
+  50% {
+    transform: rotateX(90deg); /* Rotate halfway to create flipping effect */
+  }
+  100% {
+    transform: rotateX(0deg); /* Return to original rotation */
+  }
+}
+
+.flipsGreen0 {
+  color:white;
+  background-color: #6aaa64;
+  transform: rotateX(360deg); /* Rotate the element 180 degrees around the Y-axis */
+  animation: flipAnimation 1s ease forwards;
+  transition: background-color 0.5s ease 0.5s, color 0.5s ease 0.5s;
+}
+.flipsYellow0 {
+  background-color: #c9b458;
+  transform: rotateX(360deg); /* Rotate the element 180 degrees around the Y-axis */
+  animation: flipAnimation 1s ease forwards;
+  transition: background-color 0.5s ease 0.5s, color 0.5s ease 0.5s;
+  color:white;
+}
+.flipsGris0 {
+  background-color: #787c7e;
+  transform: rotateX(360deg); /* Rotate the element 180 degrees around the Y-axis */
+  animation: flipAnimation 1s ease forwards;
+  transition: background-color 0.5s ease 0.5s, color 0.5s ease 0.5s;
+  color:white;
+}
+
+.flipsGreen1 {
+  background-color: #6aaa64;
+  transform: rotateX(360deg); /* Rotate the element 180 degrees around the Y-axis */
+  animation: flipAnimation 1s ease forwards 1s;
+  transition: background-color 0.5s ease 1.5s, color 0.5s ease 1.5s;
+  color:white;
+}
+.flipsYellow1 {
+  background-color: #c9b458;
+  transform: rotateX(360deg); /* Rotate the element 180 degrees around the Y-axis */
+  animation: flipAnimation 1s ease forwards 1s;
+  transition: background-color 0.5s ease 1.5s, color 0.5s ease 1.5s;
+  color:white;
+}
+.flipsGris1 {
+  background-color: #787c7e;
+  transform: rotateX(360deg); /* Rotate the element 180 degrees around the Y-axis */
+  animation: flipAnimation 1s ease forwards 1s;
+  transition: background-color 0.5s ease 1.5s, color 0.5s ease 1.5s;
+  color:white;
+}
+
+.flipsGreen2 {
+  background-color: #6aaa64;
+  transform: rotateX(360deg); /* Rotate the element 180 degrees around the Y-axis */
+  animation: flipAnimation 1s ease forwards 2s;
+  transition: background-color 0.5s ease 2.5s, color 0.5s ease 2.5s;
+  color:white;
+}
+.flipsYellow2 {
+  background-color: #c9b458;
+  transform: rotateX(360deg); /* Rotate the element 180 degrees around the Y-axis */
+  animation: flipAnimation 1s ease forwards 2s;
+  transition: background-color 0.5s ease 2.5s, color 0.5s ease 2.5s;
+  color:white;
+}
+.flipsGris2 {
+  background-color: #787c7e;
+  transform: rotateX(360deg); /* Rotate the element 180 degrees around the Y-axis */
+  animation: flipAnimation 1s ease forwards 2s;
+  transition: background-color 0.5s ease 2.5s, color 0.5s ease 2.5s;
+  color:white;
+}
+
+.flipsGreen3 {
+  background-color: #6aaa64;
+  animation: flipAnimation 1s ease forwards 3s;
+  transition: background-color 0.5s ease 3.5s, color 0.5s ease 3.5s;
+  color:white;
+}
+.flipsYellow3 {
+  background-color: #c9b458;
+  animation: flipAnimation 1s ease forwards 3s;
+  transition: background-color 0.5s ease 3.5s, color 0.5s ease 3.5s;
+  color:white;
+}
+.flipsGris3 {
+  background-color: #787c7e;
+  animation: flipAnimation 1s ease forwards 3s;
+  transition: background-color 0.5s ease 3.5s, color 0.5s ease 3.5s;
+  color:white;
+}
+
+.flipsGreen4 {
+  background-color: #6aaa64;
+  animation: flipAnimation 1s ease forwards 4s;
+  transition: background-color 0.5s ease 4.5s, color 0.5s ease 4.5s;
+  color:white;
+}
+.flipsYellow4 {
+  background-color: #c9b458;
+  animation: flipAnimation 1s ease forwards 4s;
+  transition: background-color 0.5s ease 4.5s, color 0.5s ease 4.5s;
+  color:white;
+}
+.flipsGris4 {
+  background-color: #787c7e;
+  animation: flipAnimation 1s ease forwards 4s;
+  transition: background-color 0.5s ease 4.5s, color 0.5s ease 4.5s;
+  color:white;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Transparent dark background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.popup h2 {
+  color: #333;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.popup p {
+  color: #666;
+  margin-bottom: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.popup button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.popup button:hover {
+  background-color: #0056b3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
