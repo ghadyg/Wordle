@@ -17,6 +17,11 @@
   grid-column-gap: 1%;
 
 }
+@media screen and (max-width: 1000px) {
+  .body {
+    width: 70vw;
+  }
+}
 
 .box {
   border: 2px solid #d3d6da;
