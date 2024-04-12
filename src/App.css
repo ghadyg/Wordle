@@ -15,13 +15,17 @@
   grid-template-rows: repeat(6,16%);
   grid-row-gap: 1%;
   grid-column-gap: 1%;
-
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1400px) {
+  .body {
+    width: 40vw;
+  }
+} 
+ @media screen and (max-width: 1000px) {
   .body {
     width: 70vw;
   }
-}
+} 
 
 .box {
   border: 2px solid #d3d6da;

@@ -112,6 +112,7 @@ function App() {
       {
           if(words[row][4] !== '')
           {
+            
             const exist = await checkWord(words[row].join(''))
             if(exist)
             {
@@ -128,7 +129,11 @@ function App() {
 
             }
             else
-              alert("word does not exist")
+            {
+              alert("word does not exist");
+              alert(words[row].join(''));
+            }
+              
           }
           else
            alert("not enough letters")
@@ -158,7 +163,10 @@ function App() {
     useEffect(() => {
       
       if(!finished)
+      {
         document.addEventListener('keydown', handleKeyPress);
+        
+      }
       if(finished)
       {
         setTimeout(function() {
@@ -184,12 +192,12 @@ function App() {
   
   const checkWord = async (word) => {
     try {
+      console.log(word);
       const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
       if(response.ok) 
       {
         const data = await response.json()
-        
-        if(data[0].word ===word)
+        if(data[0].word ===word.toLowerCase())
         return true;
         else return false;
       }
@@ -198,10 +206,35 @@ function App() {
       return false;
     }
   };
+ // const [content, setContent] = useState('');
+  // const handleChange = (event,row,col) => {
+  //   console.log(event)
+  //   const newText = event.target.innerText.trim();
+  //   if (newText.length > 1) {
+  //     const letterRegex = /^[a-zA-Z]$/;
+  //     console.log(newText);
+  //     if (letterRegex.test(newText)) 
+  //       event.target.innerText = newText.charAt(0);
+  //     else
+  //     {
+  //       event.target.innerText = '';
+  //       alert("Please enter a Letter!");
+  //     }
+  //   }
+  //   setContent(event.target.innerText);
+  //   setWords(prevWords =>{
+  //     const newWord = [...prevWords ];
+  //     newWord[row] = [...newWord[row]];
+  //     newWord[row][col] = event.target.innerText; 
+  //     return newWord; 
+  //   });
+  //   setContent('');
+    
+  // };
 
   return (
-    <div>
-      
+    <div >
+        
         <div className='header'><h1>Wordle</h1></div>
         {popup && (<React.Fragment> <div className="overlay">
         <div className="popup">
@@ -211,12 +244,13 @@ function App() {
         </div>
       </div></React.Fragment>)}
         <div className='body'>
+        
         <div className={`box ${row>=1 ? handleBoxColor(0,0) :''}`}>{words[0][0]}</div>
         <div className={`box ${row>=1 ? handleBoxColor(0,1) :''}`}>{words[0][1]}</div>
         <div className={`box ${row>=1 ? handleBoxColor(0,2) :''}`}>{words[0][2]}</div>
         <div className={`box ${row>=1 ? handleBoxColor(0,3) :''}`}>{words[0][3]}</div>
         <div className={`box ${row>=1 ? handleBoxColor(0,4) :''}`}>{words[0][4]}</div>
-
+        {/* contentEditable="true" onInput={(event) => handleChange(event, 1, 0)}  */}
         <div className={`box ${row>=2 ? handleBoxColor(1,0) :''}`}>{words[1][0]}</div>
         <div className={`box ${row>=2 ? handleBoxColor(1,1) :''}`}>{words[1][1]}</div>
         <div className={`box ${row>=2 ? handleBoxColor(1,2) :''}`}>{words[1][2]}</div>
